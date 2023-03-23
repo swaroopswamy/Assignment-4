@@ -1,3 +1,5 @@
+//0xd9145CCE52D386f254917e481eB44e9943F39138
+
 pragma solidity ^0.8.0;
 
 contract Subscription {
@@ -5,9 +7,9 @@ contract Subscription {
     State public state;
     
     address payable public owner;
-    uint public subscriptionFee;
+    uint256 public subscriptionFee;
     
-    mapping(address => uint) public subscriptions;
+    mapping(address => uint256) public subscriptions;
     
     modifier onlyOwner() {
         require(msg.sender == owner, "Only the contract owner can call this function.");
@@ -19,7 +21,7 @@ contract Subscription {
         _;
     }
     
-    constructor(uint _subscriptionFee) {
+    constructor(uint256 _subscriptionFee) {
         owner = payable(msg.sender);
         subscriptionFee = _subscriptionFee;
         state = State.inactive;
@@ -29,7 +31,7 @@ contract Subscription {
         state = State.active;
     }
     
-    function subscribe(uint _periodMonths) public payable onlyWhileActive {
+    function subscribe(uint256 _periodMonths) public payable onlyWhileActive {
         require(_periodMonths > 0, "Subscription period must be greater than zero.");
         uint totalFee = subscriptionFee * _periodMonths;
         require(msg.value == totalFee, "Incorrect subscription fee.");
