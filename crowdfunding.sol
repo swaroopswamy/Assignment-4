@@ -7,9 +7,9 @@ contract Crowdfunding {
     State public state;
     
     address payable public owner;
-    uint public fundingGoal;
-    uint public deadline;
-    uint public totalFundsRaised;
+    uint256 public fundingGoal;
+    uint256 public deadline;
+    uint256 public totalFundsRaised;
     
     mapping(address => uint256) public contributions;
     
@@ -28,7 +28,7 @@ contract Crowdfunding {
         state = State.inactive;
     }
     
-    function startFunding(uint _fundingGoal, uint256 _durationDays) public onlyOwner inState(State.inactive) {
+    function startFunding(uint256 _fundingGoal, uint256 _durationDays) public onlyOwner inState(State.inactive) {
         require(_fundingGoal > 0, "Funding goal must be greater than zero.");
         require(_durationDays > 0, "Funding duration must be greater than zero.");
         fundingGoal = _fundingGoal;
