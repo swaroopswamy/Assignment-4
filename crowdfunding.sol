@@ -11,7 +11,7 @@ contract Crowdfunding {
     uint public deadline;
     uint public totalFundsRaised;
     
-    mapping(address => uint) public contributions;
+    mapping(address => uint256) public contributions;
     
     modifier onlyOwner() {
         require(msg.sender == owner, "Only the contract owner can call this function.");
@@ -28,7 +28,7 @@ contract Crowdfunding {
         state = State.inactive;
     }
     
-    function startFunding(uint _fundingGoal, uint _durationDays) public onlyOwner inState(State.inactive) {
+    function startFunding(uint _fundingGoal, uint256 _durationDays) public onlyOwner inState(State.inactive) {
         require(_fundingGoal > 0, "Funding goal must be greater than zero.");
         require(_durationDays > 0, "Funding duration must be greater than zero.");
         fundingGoal = _fundingGoal;
