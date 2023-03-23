@@ -12,7 +12,7 @@ contract TokenSale {
 
     event SaleStarted(uint256 tokensForSale, uint256 price);
     event TokensPurchased(address buyer, uint256 tokens);
-    event SaleEnded(uint tokensSold);
+    event SaleEnded(uint256 tokensSold);
 
     constructor(uint256 _tokensForSale, uint256 _price) {
         owner = msg.sender;
