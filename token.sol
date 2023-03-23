@@ -4,17 +4,17 @@ pragma solidity ^0.8.0;
 
 contract TokenSale {
     address public owner;
-    uint public tokensForSale;
-    uint public tokensSold;
-    uint public price;
+    uint256 public tokensForSale;
+    uint256 public tokensSold;
+    uint256 public price;
     bool public saleActive;
-    mapping(address => uint) public balances;
+    mapping(address => uint256) public balances;
 
-    event SaleStarted(uint tokensForSale, uint price);
-    event TokensPurchased(address buyer, uint tokens);
+    event SaleStarted(uint256 tokensForSale, uint256 price);
+    event TokensPurchased(address buyer, uint256 tokens);
     event SaleEnded(uint tokensSold);
 
-    constructor(uint _tokensForSale, uint _price) {
+    constructor(uint256 _tokensForSale, uint256 _price) {
         owner = msg.sender;
         tokensForSale = _tokensForSale;
         price = _price;
@@ -29,7 +29,7 @@ contract TokenSale {
         emit SaleStarted(tokensForSale, price);
     }
 
-    function buyTokens(uint _tokens) public payable {
+    function buyTokens(uint256 _tokens) public payable {
         require(saleActive,"The sale is not active.");
         require(_tokens > 0,"You must purchase at least one token.");
         require(tokensSold + _tokens <= tokensForSale,"There are not enough tokens left for sale.");
@@ -51,7 +51,7 @@ contract TokenSale {
     function withdraw() public {
         require(balances[msg.sender] > 0,"You have no tokens to withdraw.");
 
-        uint tokens = balances[msg.sender];
+        uint256 tokens = balances[msg.sender];
         balances[msg.sender] = 0;
         payable(msg.sender).transfer(tokens * price);
     }
