@@ -1,8 +1,11 @@
-//0xd9145CCE52D386f254917e481eB44e9943F39138
+//0x85cA762111C0306dD8AC932bB8627707090E50B0
 
-pragma solidity ^0.8.0;
+ pragma solidity ^0.8.0;
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 contract Subscription {
+    using SafeMath for uint256;
+
     enum State {inactive, active}
     State public state;
     
@@ -35,7 +38,7 @@ contract Subscription {
         require(_periodMonths > 0, "Subscription period must be greater than zero.");
         uint totalFee = subscriptionFee * _periodMonths;
         require(msg.value == totalFee, "Incorrect subscription fee.");
-        subscriptions[msg.sender] += block.timestamp + (_periodMonths * 30 days);
+        subscriptions[msg.sender] = subscriptions[msg.sender].add(block.timestamp) .add((_periodMonths .mul(30 days)));
     }
     
     function checkSubscription(address subscriber) public view returns (bool) {
